@@ -12,10 +12,22 @@ from users.serializers import PaySerializer, UserSerializer
 class PayViewSet(ModelViewSet):
     queryset = Pay.objects.all()
     serializer_class = PaySerializer
-    filter_backends = [DjangoFilterBackend, filters.OrderingFilter, filters.SearchFilter]
-    ordering_fields = ("date_pay", "payment_amount",)
+    filter_backends = [
+        DjangoFilterBackend,
+        filters.OrderingFilter,
+        filters.SearchFilter,
+    ]
+    ordering_fields = (
+        "date_pay",
+        "payment_amount",
+    )
     search_fields = ("payment_method",)
-    filterset_fields = ("date_pay", "payment_course", "payment_lesson", "payment_method",)
+    filterset_fields = (
+        "date_pay",
+        "payment_course",
+        "payment_lesson",
+        "payment_method",
+    )
 
 
 class PayCreateAPIView(CreateAPIView):
@@ -32,5 +44,3 @@ class UserCreateAPIView(CreateAPIView):
         user = serializer.save(is_active=True)
         user.set_password(user.password)
         user.save()
-
-

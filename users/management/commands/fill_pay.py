@@ -5,16 +5,16 @@ from users.models import Pay, User
 
 class Command(BaseCommand):
     def handle(self, *args, **options):
-        params = dict(username='test', email='test@example.com', password='qwerty')
+        params = dict(username="test", email="test@example.com", password="qwerty")
         user, user_status = User.objects.get_or_create(**params)
         user.is_staff = True
         user.is_superuser = True
         user.save()
-        print('User created successfully.')
+        print("User created successfully.")
 
         pay_list = [
             {
-                'user': user,
+                "user": user,
                 "date_pay": "2022-09-01",
                 "payment_course": "2",
                 "payment_lesson": "",
@@ -22,7 +22,7 @@ class Command(BaseCommand):
                 "payment_method": "cash",
             },
             {
-                'user': user,
+                "user": user,
                 "date_pay": "2022-09-03",
                 "payment_course": "1",
                 "payment_lesson": "",
@@ -30,13 +30,13 @@ class Command(BaseCommand):
                 "payment_method": "transfer",
             },
             {
-                'user': user,
+                "user": user,
                 "date_pay": "2022-09-05",
                 "payment_course": "3",
                 "payment_lesson": "",
                 "payment_amount": "3000",
                 "payment_method": "cash",
-            }
+            },
         ]
 
         payment_for_create = []
