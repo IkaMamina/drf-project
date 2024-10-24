@@ -95,7 +95,6 @@ class SubscriptionTestCase(APITestCase):
             "course": self.course.pk
         }
         response = self.client.post(url, data)
-        print(response.json())
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data, {'message': 'Подписка отключена'})

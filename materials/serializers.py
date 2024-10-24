@@ -13,9 +13,16 @@ class LessonSerializer(serializers.ModelSerializer):
 class CourseSerializer(serializers.ModelSerializer):
     lesson = LessonSerializer(read_only=True)
     name = serializers.CharField(validators=[check_link])
+    is_subscribed = serializers.SerializerMethodField()
 
     class Meta:
         model = Course
+        fields = "__all__"
+
+
+class SubscriptionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Subscription
         fields = "__all__"
 
 
@@ -29,9 +36,3 @@ class CourseDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = Course
         fields = ("name", "description", "preview", "count_lesson")
-
-
-class SubscriptionSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Subscription
-        fields = "__all__"
