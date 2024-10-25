@@ -13,7 +13,6 @@ class LessonSerializer(serializers.ModelSerializer):
 class CourseSerializer(serializers.ModelSerializer):
     lesson = LessonSerializer(read_only=True)
     name = serializers.CharField(validators=[check_link])
-    is_subscribed = serializers.SerializerMethodField()
 
     class Meta:
         model = Course
@@ -29,10 +28,15 @@ class SubscriptionSerializer(serializers.ModelSerializer):
 class CourseDetailSerializer(serializers.ModelSerializer):
     count_lesson = serializers.SerializerMethodField()
     lesson = LessonSerializer()
+    subscription = serializers.SerializerMethodField()
 
     def get_count_lesson(self, course):
         return Course.objects.filter(lesson=course.lesson).count()
 
+    def get_subscription(self, course):
+        user = self.context['request'].user
+        return Subscription.objects.all().filter(user=user).filter(course=course).exists()
+
     class Meta:
         model = Course
-        fields = ("name", "description", "preview", "count_lesson")
+        fields = ("name", "description", "preview", "count_lesson", "subscription")

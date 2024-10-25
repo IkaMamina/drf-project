@@ -56,6 +56,7 @@ class Pay(models.Model):
     payment_method = models.CharField(
         choices=PAYMENT_METHOD, default=CASH, verbose_name="Способ оплаты"
     )
+    link = models.URLField(max_length=400,  verbose_name="Ссылка на оплату", **NULLABLE)
 
     class Meta:
         verbose_name = "Платеж"
